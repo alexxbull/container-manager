@@ -17,38 +17,66 @@ const styles = theme => ({
 
 class ContainerTabs extends React.Component {
   state = {
-    value: '',
+    value: 'View Containers',
+    addLabel: 'Add New Container',
+    viewLabel: 'View Containers',
   };
 
-  // retrieve containers data from local storage
+  handleChange = (event, value) => this.setState({ value: value })
 
-  handleChange = (event, value) => {
-    this.setState({ value });
-  };
+  showViewTab = () => this.handleChange(null, this.state.viewLabel)
 
   render() {
     const { add, del, classes, containers } = this.props;
+    const { addLabel, viewLabel, value } = this.state
 
     return (
       <BrowserRouter>
         <div className={classes.root}>
           <AppBar position="static" color="default">
             <Tabs
-              value={this.state.value}
+              value={value}
               onChange={this.handleChange}
               indicatorColor="primary"
               textColor="primary"
               fullWidth
             >
-              <Tab label="Add New Container" value="Add New Container" component={Link} to="/containers/add" />
-              <Tab label="View Containers" value="View Containers" component={Link} to="/containers/view" />
+              <Tab
+                label="Add New Container"
+                value={addLabel}
+                component={Link}
+                to="/containers/add" />
+              <Tab
+                label="View Containers"
+                value={viewLabel}
+                component={Link}
+                to="/containers/view" />
             </Tabs>
           </AppBar>
 
           <Switch>
-            <Route path="/containers/add" render={props => <ContainerForm add={add} containers={containers} />} />
-            <Route path="/containers/view" render={props => <ContainerTable containers={containers} del={del} />} />
-            <Route path="/" render={props => <ContainerTable containers={containers} del={del} />} />
+            <Route
+              path="/containers/add"
+              render={props => {
+                return <ContainerForm
+                  add={add}
+                  containers={containers}
+                  showViewTab={this.showViewTab} />
+              }} />
+            <Route
+              path="/containers/view"
+              render={props => {
+                return <ContainerTable
+                  containers={containers}
+                  del={del} />
+              }} />
+            <Route
+              path="/"
+              render={props => {
+                return <ContainerTable
+                  containers={containers}
+                  del={del} />
+              }} />
           </Switch>
         </div>
       </BrowserRouter>
@@ -60,4 +88,4 @@ ContainerTabs.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ContainerTabs);
+export default withStyles(styles)(ContainerTabs)

@@ -12,7 +12,7 @@ class App extends Component {
   }
 
   // load containers from local storage
-  loadContainers() {
+  loadContainers = () => {
     let containers = [];
 
     if (localStorage.getItem('containers') !== null)
@@ -22,20 +22,20 @@ class App extends Component {
   }
 
   // add the container to data in local storage
-  addContainer(container) {
+  addContainer = (container) => {
     const { containers } = this.state
     containers.push(container)
     this.updateContainers(containers)
   }
 
   // delete container with the given ID
-  deleteContainer(id) {
+  deleteContainer = (id) => {
     const { containers } = this.state
     const containersList = containers.filter(c => c.id !== id)
     this.updateContainers(containersList)
   }
 
-  updateContainers(containers) {
+  updateContainers = (containers) => {
     localStorage.setItem('containers', JSON.stringify(containers))
     this.setState({ containers: containers })
   }
@@ -46,8 +46,8 @@ class App extends Component {
         <div className="App">
           <ContainerTabs
             containers={this.state.containers}
-            add={this.addContainer.bind(this)}
-            del={this.deleteContainer.bind(this)} />
+            add={this.addContainer}
+            del={this.deleteContainer} />
         </div>
       </BrowserRouter>
     );

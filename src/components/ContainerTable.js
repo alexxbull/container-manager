@@ -35,7 +35,7 @@ const deleteContainer = (data, props) => rowsSelected => {
     const rowData = data[row.index]; // selected row from data source
     const rowID = rowData[0]        // the id in the selected row
     props.del(rowID)
-  });
+  })
 }
 
 const containerTable = (props) => {

@@ -9,6 +9,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from "@material-ui/core/MenuItem";
+import { withRouter } from 'react-router-dom'
 
 const styles = theme => ({
   container: {
@@ -204,6 +205,8 @@ class ContainerForm extends Component {
         container[name] = this.state[name].value
 
       this.props.add(container)
+      this.props.showViewTab()
+      this.props.history.push('/containers/view')
     }
   }
 
@@ -368,4 +371,4 @@ ContainerForm.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ContainerForm);
+export default withRouter(withStyles(styles)(ContainerForm));
